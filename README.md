@@ -33,7 +33,11 @@ python3 sjson.py 'foo.bar:{hello:12 world:"12"}'
 
 Construct a GeoJSON feature:
 ```sh
-python3 sjson.py 'type: Feature  geometry: {type:Point coordinates:[13.2, 43.12]}  id:1001  properties.stats:{population:123e03 area: 3323} properties.name:/dev/null'
+python3 sjson.py '
+type: Feature
+geometry: {type:Point coordinates:[13.2, 43.12]}
+id:1001
+properties.stats:{population:123e03 area: 3323} properties.name:/dev/null'
 ```
 ```json
 {
@@ -61,8 +65,15 @@ can use `sjson` to help:
 
 ```sh
 python3 sjson.py "
-aggs.histogram:{aggs.users.terms:{field:date size:3} data_histogram:{field:date format:yyyy-MM-dd interval:1M}}
-query.constant_score.bool.must:[geo_shape.geom.indexed_shape:{id:1001 index:countries path:shape type:countries}, range.date:{gte:2017-01-22 lt:2017-01-23}]
+aggs.histogram:{
+    aggs.users.terms:{field:date size:3}
+    data_histogram:{field:date format:yyyy-MM-dd interval:1M}
+}
+
+query.constant_score.bool.must:[
+    geo_shape.geom.indexed_shape:{id:1001 index:countries path:shape type:countries},
+    range.date:{gte:2017-01-22 lt:2017-01-23}
+]
 " # | curl localhost:80/els/users -d@-
 ```
 
