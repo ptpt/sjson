@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 __all__ = ['ParseError' 'Parser', 'loads']
 __author__ = 'Tao Peng'
 
@@ -19,13 +21,14 @@ _RE_PATH_SEP = _ewc(':')
 _RE_SEGMENT_SEP = _c(re.escape('.'))
 _RE_VALUE_SEP = _ewc(',')
 
-_RE_LITERALS = _wc(r'(true|false|null)')
-_RE_NUMBER = _wc(r'''
+_RE_END_VALUE = _c(r'(?=[,\]\} \t\n\r]|\Z)')
+_RE_LITERALS = _c(_RE_WHITESPACE.pattern + r'(true|false|null)' + _RE_END_VALUE.pattern)
+_RE_NUMBER = _c(_RE_WHITESPACE.pattern + r'''
 (-?                              # [minus]
 (?:0|[1-9][0-9]*)                # int
 (?:\.[0-9]+)?                    # [frac]
 (?:[eE][-+]?[0-9]+)?)            # [exp]
-''')
+''' + _RE_END_VALUE.pattern)
 _RE_SEGMENT = _c(r'([^",.:\[\]\{\} \t\n\r]+)')
 _RE_QUOTED_SEGMENT = _c(r'("(?:[^"\\]|\\.)*")')
 _RE_EOF = _c(r'\Z')

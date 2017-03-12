@@ -50,6 +50,9 @@ class TestString(unittest.TestCase):
         _eq('""', '')
         _eq('"world\\n"', 'world\n')
         _eq('"\\nworld\\t"', '\nworld\t')
+        _eq('"false"', "false"); _eq('"true"', "true"); _eq('"null"', "null"); _eq('"12"', '12')
+        _eq('falsehello', 'falsehello'); _eq('truefalse', 'truefalse'); _eq('nulltrue', 'nulltrue')
+        _eq('12-3', '12-3')
 
     def test_failure(self):
         def _raise(a):
@@ -74,10 +77,11 @@ class TestArray(unittest.TestCase):
         _eq(
             '''
             [1,
-            2, "hello[world", \t
-            4,[5, [6, "NaN]"], []]]
+            false  ,
+            2, "true[world", \t
+            4,[5, [6, "NaN]"], []], 123E3 ]
             ''',
-            [1, 2, 'hello[world', 4, [5, [6, "NaN]"], []]])
+            [1, False, 2, 'true[world', 4, [5, [6, "NaN]"], []], 123000.0])
 
     def test_failure(self):
         def _raise(a):
