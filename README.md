@@ -73,8 +73,7 @@ aggs.histogram:{
 query.constant_score.bool.must:[
     geo_shape.geom.indexed_shape:{id:1001 index:countries path:shape type:countries},
     range.date:{gte:2017-01-22 lt:2017-01-23}
-]
-" # | curl localhost:80/els/users -d@-
+]" # | curl localhost:80/els/users -d@-
 ```
 
 ```json
