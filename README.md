@@ -60,8 +60,7 @@ properties.stats:{population:123e03 area: 3323} properties.name:/dev/null'
 }
 ```
 
-In ElasticSearch when you need to construct complex query in JSON, you
-can use `sjson` to help:
+Construct complex query in ElasticSearch:
 
 ```sh
 python3 sjson.py "
